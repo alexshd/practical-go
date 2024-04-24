@@ -136,7 +136,7 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 
 ### Data & Other
 
-- [sherlock.txt](data/sherlock.txt)
+- [sherlock.txt](_extra/sherlock.txt)
 
 ---
 
