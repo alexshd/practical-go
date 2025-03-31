@@ -2,6 +2,29 @@
 
 ArdanLabs ∴  2025 <br />
 
+This repo contains the material for the "Practical Go Foundations" class.
+The code & links are synced with the [online class](for Developers).
+
+This is an assorted collection of exercises for teaching, not a real Go project.
+
+## Setting Up
+
+We highly recommend that you set up a local working environment and follow along with the videos.
+To setup a local environment install the following:
+- The Go SDK either from your package manager (`brew`, `apt`, `choco` ...) or from [here](https://go.dev/dl/)
+- `git`
+- And IDE such as [VSCode](https://code.visualstudio.com/) with [the Go extension](https://marketplace.visualstudio.com/items?itemName=golang.Go) or [GoLand](https://www.jetbrains.com/go/)
+
+However, if you want to jump right in, you can use GitHub codespaces with the course repository.
+To start a codespaces follow these steps:
+
+- Click on the green "<> Code" button
+- Select the "Codespaces" tab
+- Click on the green "Create codespace on main" button
+
+After a while you should have a new tab with Visual Studio Code already set up.
+You can read more about codespaces [here](https://github.com/features/codespaces).
+
 Miki Tebeka
 <i class="far fa-envelope"></i> [miki@ardanlabs.com](mailto:miki@ardanlabs.com), <i class="fab fa-twitter"></i> [@tebeka](https://twitter.com/tebeka), <i class="fab fa-linkedin-in"></i> [mikitebeka](https://www.linkedin.com/in/mikitebeka/), <i class="fab fa-blogger-b"></i> [blog](https://www.ardanlabs.com/blog/), <i class="fa-brands fa-medium"></i>[medium](https://medium.com/@tebeka).
 
@@ -12,36 +35,30 @@ Miki Tebeka
 - [Go Brain Teasers](https://pragprog.com/titles/d-gobrain/go-brain-teasers/) book
     - [Rest of books](https://pragprog.com/search/?q=miki+tebeka)
 
-[FINAL EXERCISE](_extra/dld.md)
-
 ---
-
-## Day 1
-
-### Agenda
-
-- Strings & formatted output
-    - What's a string?
-    - Unicode basics
-    - Using fmt package for formatted output
-- Calling REST APIs
-    - Making HTTP calls with net/http
-    - Defining structs
-    - Serializing JSON
-- Working with files
-    - Handling errors
-    - Using defer to manage resources
-    - Working with io.Reader & io.Writer interfaces
 
 ### Code
 
 
-- [hw.go](ws/sandboxaq/hw/hw.go) - Hello World
-- [banner.go](ws/sandboxaq/banner/banner.go) - Working with strings
-- [github.go](ws/sandboxaq/github/github.go) - Calling REST APIs
-- [kill_server.go](ws/sandboxaq/kill_server/kill_server.go) - Working with files, errors
-- [sha1.go](ws/sandboxaq/sha1/sha1.go) - Using `io.Reader` & `io.Writer`
-- [scope.go](ws/sandboxaq/scope/scope.go) - Variable scope
+- [hw.go](hw/hw.go) - Hello World
+- [banner.go](banner/banner.go) - Working with strings, Unicode
+- [github.go](github/github.go) - Calling REST APIs, JSON
+- [kill_server.go](kill_server/kill_server.go) - Working with files, defer, error handling
+- [div.go](div/div.go) - Handling panics
+- [sha1.go](sha1/sha1.go) - Using `io.Reader` and `io.Writer`
+- [cart.go](cart/cart.go) - Working with slices
+- [game.go](game/game.go) - Structs, methods & interfaces
+- [empty.go](empty/empty.go) - The empty interface
+- [stats.go](stats/stats.go) - Using generics
+- [freq.go](freq/freq.go) - Processing text, regular expressions
+- [go_chan.go](go_chan/go_chan.go) - Goroutines and channels
+- [urls.go](urls/urls.go) - Fan out patterns
+- [taxi_check.go](taxi_check/taxi_check.go) - Convert sequential code to concurrent
+- [count.go](count/count.go) - Using mutex and atomic, the race detector
+- [select.go](select/select.go) - Using select, context for timeout and cancellation
+- [rtb.go](rtb/rtb.go) - Using context for timeouts
+- [nlp](nlp) - `nlp` project
+
 
 ### Links
 
@@ -67,43 +84,6 @@ Miki Tebeka
     - [The Go SDK](https://go.dev/dl/)
     - [git](https://git-scm.com/)
     - IDE's: [Visual Studio Code](https://code.visualstudio.com/) + [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.Go) or [Goland](https://www.jetbrains.com/go/) (paid)
-
-### Data & Other
-
-- `G☺`
-- `♡`
-- [http.log.gz](_extra/http.log.gz)
-- `https://api.github.com/users/tebeka`
-- [Slides](_extra/slides.pdf)
-- [Unicode](_extra/unicode.pdf)
-
----
-
-## Day 2
-
-### Agenda
-
-- Sorting
-    - Working with slices
-    - Writing methods
-    - Understanding interfaces
-- Catching panics
-    - The built-in recover function
-    - Named return values
-- Processing text
-    - Reading line by line with bufio.Scanner
-    - Using regular expressions
-    - Working with maps
-
-### Code
-
-- [cart.go](cart/cart.go) - Slices
-- [game.go](game/game.go) - Structs, methods & interfaces
-- [empty.go](empty/empty.go) - The empty interface
-- [stats.go](stats/stats.go) - Using generics
-
-### Links
-
 - [Hyrum's Law](https://www.hyrumslaw.com/)
 - [regex101](https://regex101.com/) - Regular expression builder
 - [sort examples](https://pkg.go.dev/sort/#pkg-examples) - Read and try to understand
@@ -119,40 +99,6 @@ Miki Tebeka
     - [errors](https://pkg.go.dev/errors/) package ([Go 1.13](https://go.dev/blog/go1.13-errors))
     - [pkg/errors](https://github.com/pkg/errors)
 - [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
-
-### Data & Other
-
-- [Cost of errors](_extra/cost.png)
-- [sherlock.txt](_extra/sherlock.txt)
-- [slices](_extra/slices.md)
-- [Method sets](_extra/method-sets.pdf)
-
----
-
-## Day 3
-
-### Agenda
-
-- Distributing work
-    - Using goroutines & channels
-    - Using the sync package to coordinate work
-- Timeouts & cancellation
-    - Working with multiple channels using select
-    - Using context for timeouts & cancellations
-    - Standard library support for context
-
-### Code
-
-
-- [div.go](div/div.go) - Handling panics
-- [freq.go](freq/freq.go) - Processing text
-- [go_chan.go](go_chan/go_chan.go) - Channels and goroutines
-- [taxi_check.go](taxi/taxi_check.go) - Converting sequential code to concurrent
-- [rtb.go](rtb/rtb.go) - Using context for timeouts
-- [counter.go](counter/counter.go) - Using mutex and atomic
-
-### Links
-
 - [The race detector](https://go.dev/doc/articles/race_detector)
 - [Uber Go Style Guide](https://github.com/uber-go/guide/blob/master/style.md)
 - [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)
@@ -168,42 +114,6 @@ Miki Tebeka
 - [Concurrency is not Parallelism](https://www.youtube.com/watch?v=cN_DpYBzKso) by Rob Pike
 - [Scheduling in Go](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part2.html) by Bill Kennedy
 - [The cost of Go's panic and recover](https://jub0bs.com/posts/2025-02-28-cost-of-panic-recover/)
-
-### Data & Other
-
-- [rtb.go](_extra/rtb.go)
-- [site_times.go](_extra/site_time.go)
-- [taxi.tar](https://storage.googleapis.com/353solutions/c/data/taxi.tar)
-
----
-
-## Day 4
-
-### Agenda
-
-- Testing your code
-    - Working with the testing package
-    - Using testify
-    - Managing dependencies with go mod
-- Structuring your code
-    - Writing sub-packages
-- Writing an HTTP server
-    - Writing handlers
-    - Testing handlers
-Adding metrics & logging
-    - Using expvar for metrics
-    - Using the log package and a look at user/zap
-- Configuration patterns
-    - Reading environment variables and a look at external packages
-    - Using the flag package for command line processing
-
-### Code
-
-- [nlp](nlp) - `nlp` project
-
-### Links
-
-- [flags](https://github.com/tebeka/flags) - More types for the built-in `flag` package
 - [Conway's Law](https://martinfowler.com/bliki/ConwaysLaw.html)
 - [The Twelve-Factor App](https://12factor.net)
 - Configuration
@@ -253,8 +163,22 @@ Adding metrics & logging
     - [net/http/httptest](https://pkg.go.dev/net/http/httptest)
     - [chi](https://github.com/go-chi/chi) - A nice web framework
 
+
+
 ### Data & Other
 
+- `G☺`
+- `♡`
+- [http.log.gz](_extra/http.log.gz)
+- `https://api.github.com/users/tebeka`
+- [Slides](_extra/slides.pdf)
+- [Unicode](_extra/unicode.pdf)
+- [Cost of errors](_extra/cost.png)
+- [sherlock.txt](_extra/sherlock.txt)
+- [slices](_extra/slices.md)
+- [rtb.go](_extra/rtb.go)
+- [taxi.tar](https://storage.googleapis.com/353solutions/c/data/taxi.tar)
+- [flags](https://github.com/tebeka/flags) - More types for the built-in `flag` package
 - [nlp.go](_extra/nlp.go)
 - [stemmer.go](_extra/stemmer.go)
 - [tokenize_cases.toml](_extra/tokenize_cases.toml)
