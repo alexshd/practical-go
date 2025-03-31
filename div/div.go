@@ -1,37 +1,40 @@
 package main
 
-import (
-	"fmt"
-	"log"
-)
+import "fmt"
 
 func main() {
-	// fmt.Println(div(1, 0))
-	fmt.Println(safeDiv(1, 0))
-	fmt.Println(safeDiv(7, 2))
+	fmt.Println(safeDiv(7, 3))
+	fmt.Println(safeDiv(7, 0))
+
 }
 
-// named return values
+/* Using named return values:
+- defer/recover to change return error value
+- documentation
+*/
+
 func safeDiv(a, b int) (q int, err error) {
-	// q & err are local variables in safeDiv
-	// (just like a & b)
+	// q & err are variables inside safeDiv
+	// Just like a & b
 	defer func() {
-		// e's type is any (or interface{}) *not* error
 		if e := recover(); e != nil {
-			log.Println("ERROR:", e)
+			// fmt.Println("ERROR:", e)
 			err = fmt.Errorf("%v", e)
 		}
 	}()
 
-	// panic("ouch!")
-
-	return a / b, nil
-	/* Miki don't like this kind of programming
-	q = a / b
+	/* Don't do that :)
+	q = div(a, b)
 	return
 	*/
+	return div(a, b), nil
 }
 
 func div(a, b int) int {
+	/*
+		if b == 0 {
+			panic("division by zero")
+		}
+	*/
 	return a / b
 }

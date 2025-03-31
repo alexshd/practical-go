@@ -1,27 +1,18 @@
 # Practical Go for Developers
 
-This repo contains the material for the "Practical Go Foundations" class.
-The code & links are synced with the [online class](for Developers).
+ArdanLabs ∴  2025 <br />
 
-This is an assorted collection of exercises for teaching, not a real Go project.
+Miki Tebeka
+<i class="far fa-envelope"></i> [miki@ardanlabs.com](mailto:miki@ardanlabs.com), <i class="fab fa-twitter"></i> [@tebeka](https://twitter.com/tebeka), <i class="fab fa-linkedin-in"></i> [mikitebeka](https://www.linkedin.com/in/mikitebeka/), <i class="fab fa-blogger-b"></i> [blog](https://www.ardanlabs.com/blog/), <i class="fa-brands fa-medium"></i>[medium](https://medium.com/@tebeka).
 
-## Setting Up
+#### Shameless Plugs
 
-We highly recommend that you set up a local working environment and follow along with the videos.
-To setup a local environment install the following:
-- The Go SDK either from your package manager (`brew`, `apt`, `choco` ...) or from [here](https://go.dev/dl/)
-- `git`
-- And IDE such as [VSCode](https://code.visualstudio.com/) with [the Go extension](https://marketplace.visualstudio.com/items?itemName=golang.Go) or [GoLand](https://www.jetbrains.com/go/)
+- [Go Essential Training](https://www.linkedin.com/learning/go-essential-training/) - LinkedIn Learning
+    - [Rest of classes](https://www.linkedin.com/learning/instructors/miki-tebeka)
+- [Go Brain Teasers](https://pragprog.com/titles/d-gobrain/go-brain-teasers/) book
+    - [Rest of books](https://pragprog.com/search/?q=miki+tebeka)
 
-However, if you want to jump right in, you can use GitHub codespaces with the course repository.
-To start a codespaces follow these steps:
-
-- Click on the green "<> Code" button
-- Select the "Codespaces" tab
-- Click on the green "Create codespace on main" button
-
-After a while you should have a new tab with Visual Studio Code already set up.
-You can read more about codespaces [here](https://github.com/features/codespaces).
+[FINAL EXERCISE](_extra/dld.md)
 
 ---
 
@@ -30,7 +21,7 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 ### Agenda
 
 - Strings & formatted output
-    - What is a string?
+    - What's a string?
     - Unicode basics
     - Using fmt package for formatted output
 - Calling REST APIs
@@ -44,22 +35,21 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 
 ### Code
 
-- [hw.go](hw/hw.go) - Hello World
-    - `GOOS=drawin go build` (also `GOARCH`)
-- [banner.go](banner/banner.go) - Strings & printing
-- [github.go](github/github.go) - Calling REST APIs
-- [sha1.go](sha1/sha1.go) - Working with `io.Reader` & `io.Writer`
 
-[Terminal Log](_extra/day-1.log)
-
+- [hw.go](ws/sandboxaq/hw/hw.go) - Hello World
+- [banner.go](ws/sandboxaq/banner/banner.go) - Working with strings
+- [github.go](ws/sandboxaq/github/github.go) - Calling REST APIs
+- [kill_server.go](ws/sandboxaq/kill_server/kill_server.go) - Working with files, errors
+- [sha1.go](ws/sandboxaq/sha1/sha1.go) - Using `io.Reader` & `io.Writer`
+- [scope.go](ws/sandboxaq/scope/scope.go) - Variable scope
 
 ### Links
 
+- [GoReleaser](https://goreleaser.com/) - Building Go executables
 - [HTTP status cats](https://http.cat/)
 - [errors](https://pkg.go.dev/errors/) package ([Go 1.13](https://go.dev/blog/go1.13-errors))
 - [encoding/json](https://pkg.go.dev/encoding/json)
 - [net/http](https://pkg.go.dev/net/http)
-- [Let's talk about logging](https://dave.cheney.net/2015/11/05/lets-talk-about-logging) by Dave Cheney
 - Numbers
     - [math/big](https://pkg.go.dev/math/big/) - Big numbers
     - [Numeric types](https://go.dev/ref/spec#Numeric_types)
@@ -67,6 +57,8 @@ You can read more about codespaces [here](https://github.com/features/codespaces
     - [Unicode table](https://unicode-table.com/)
     - [strings](https://pkg.go.dev/strings/) package - string utilities
     - [Go strings](https://go.dev/blog/strings)
+    - [Plain Text](https://www.youtube.com/watch?v=gd5uJ7Nlvvo) - Great Video on Unicode
+- [Go Proverbs](https://go-proverbs.github.io/) - Think about them ☺
 - [Annotated "Hello World"](https://www.353solutions.com/annotated-go)
 - [Effective Go](https://go.dev/doc/effective_go.html) - Read this!
 - [Go standard library](https://pkg.go.dev/) - official documentation
@@ -81,6 +73,9 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 - `G☺`
 - `♡`
 - [http.log.gz](_extra/http.log.gz)
+- `https://api.github.com/users/tebeka`
+- [Slides](_extra/slides.pdf)
+- [Unicode](_extra/unicode.pdf)
 
 ---
 
@@ -102,24 +97,15 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 
 ### Code
 
-- [slices.go](slices/slices.go) - Working with slices
+- [cart.go](cart/cart.go) - Slices
 - [game.go](game/game.go) - Structs, methods & interfaces
-- [empty.go](empty/empty.go) - The empty interface, type assertions
-- [div.go](div/div.go) - Catching panics
-- [freq.go](freq/freq.go) - Most common word (files, regular expressions, maps)
-
-[Terminal Log](_extra/day-2.log)
-
-### Exercises
-
-- Read and understand the [sort package examples](https://pkg.go.dev/sort/#pkg-examples)
-- Implement `sortByDistance(players []Player, x, y int)` in `game.go`
-- Change `mostCommon` to return the most common `n` words (e.g. `func mostCommon(r io.Reader, n int) ([]string, error)`)
+- [empty.go](empty/empty.go) - The empty interface
+- [stats.go](stats/stats.go) - Using generics
 
 ### Links
 
+- [Hyrum's Law](https://www.hyrumslaw.com/)
 - [regex101](https://regex101.com/) - Regular expression builder
-- [Go Proverbs](https://go-proverbs.github.io/) - Think about them ☺
 - [sort examples](https://pkg.go.dev/sort/#pkg-examples) - Read and try to understand
 - [When to use generics](https://go.dev/blog/when-generics)
 - [Generics tutorial](https://go.dev/doc/tutorial/generics)
@@ -132,11 +118,14 @@ You can read more about codespaces [here](https://github.com/features/codespaces
     - [Defer, Panic and Recover](https://go.dev/blog/defer-panic-and-recover)
     - [errors](https://pkg.go.dev/errors/) package ([Go 1.13](https://go.dev/blog/go1.13-errors))
     - [pkg/errors](https://github.com/pkg/errors)
-
+- [Composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance)
 
 ### Data & Other
 
+- [Cost of errors](_extra/cost.png)
 - [sherlock.txt](_extra/sherlock.txt)
+- [slices](_extra/slices.md)
+- [Method sets](_extra/method-sets.pdf)
 
 ---
 
@@ -154,22 +143,13 @@ You can read more about codespaces [here](https://github.com/features/codespaces
 
 ### Code
 
-- [go_chan.go](go_chan/go_chan.go) - Goroutines & channels
-    - [sleep_sort.sh](go_chan/sleep_sort.sh) - Sleep sort in bash
-- [taxi_check.go](taxi/taxi_check.go) - Turn sequential code to parallel
-- [sites_time.go](sites_time/sites_time.go) - Using sync.WaitGroup
-- [payment.go](payment/payment.go) - Using sync.Once & sync.WaitGroup
-- [counter.go](counter/counter.go) - Using the race detector, sync.Mutex and sync/atomic
-- [select.go](select/select.go) - Using `select`
-- [rtb.go](rtb/rtb.go) - Using `context` for cancellations
 
-[Terminal Log](_extra/day-3.log)
-
-### Exercise
-
-In `taxi_check.go`
-- Limit the number of goroutines to "n". Which "n" yields the best results?
-- Cancel all goroutines once there's an error or mismatch in signature
+- [div.go](div/div.go) - Handling panics
+- [freq.go](freq/freq.go) - Processing text
+- [go_chan.go](go_chan/go_chan.go) - Channels and goroutines
+- [taxi_check.go](taxi/taxi_check.go) - Converting sequential code to concurrent
+- [rtb.go](rtb/rtb.go) - Using context for timeouts
+- [counter.go](counter/counter.go) - Using mutex and atomic
 
 ### Links
 
@@ -186,14 +166,14 @@ In `taxi_check.go`
 - [Amdahl's Law](https://en.wikipedia.org/wiki/Amdahl%27s_law) - Limits of concurrency
 - [Computer Latency at Human Scale](https://twitter.com/jordancurve/status/1108475342468120576/photo/1)
 - [Concurrency is not Parallelism](https://www.youtube.com/watch?v=cN_DpYBzKso) by Rob Pike
-- [Scheduling in Go](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part2.html)
+- [Scheduling in Go](https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part2.html) by Bill Kennedy
+- [The cost of Go's panic and recover](https://jub0bs.com/posts/2025-02-28-cost-of-panic-recover/)
 
 ### Data & Other
 
 - [rtb.go](_extra/rtb.go)
 - [site_times.go](_extra/site_time.go)
-- [taxi_check.go](_extra/taxi_check.go)
-    - [taxi-sha256.zip](_extra/taxi-sha256.zip)
+- [taxi.tar](https://storage.googleapis.com/353solutions/c/data/taxi.tar)
 
 ---
 
@@ -209,7 +189,7 @@ In `taxi_check.go`
     - Writing sub-packages
 - Writing an HTTP server
     - Writing handlers
-    - Using gorilla/mux for routing
+    - Testing handlers
 Adding metrics & logging
     - Using expvar for metrics
     - Using the log package and a look at user/zap
@@ -219,69 +199,58 @@ Adding metrics & logging
 
 ### Code
 
-`nlp` project
-
-<pre>
-├── <a href="nlp/go.mod">go.mod</a> - Project & dependencies
-├── <a href="nlp/nlp.go">nlp.go</a> - Package code
-├── <a href="nlp/doc.go">doc.go</a> - Package level documentation
-├── <a href="nlp/nlp_test.go">nlp_test.go</a> - Test & benchmark file
-├── <a href="nlp/example_test.go">example_test.go</a> - Testable example
-├── stemmer - Sub module
-│   ├── <a href="nlp/stemmer/stemmer.go">stemmer.go</a>
-│   └── <a href="nlp/stemmer/stemmer_test.go">stemmer_test.go</a>
-├── testdata - Test data
-│      └── <a href="nlp/testdata/tokenize_cases.toml">tokenize_cases.toml</a> - Test cases
-└── cmd  - Executables
-    └── nlpd - HTTP server
-        ├── <a href="nlp/cmd/nlpd/main.go">main.go</a>
-        └── <a href="nlp/cmd/nlpd/main_test.go">main_test.go</a>
-</pre>
-
-
-[Terminal Log](_extra/day-4.log)
-
+- [nlp](nlp) - `nlp` project
 
 ### Links
 
+- [flags](https://github.com/tebeka/flags) - More types for the built-in `flag` package
+- [Conway's Law](https://martinfowler.com/bliki/ConwaysLaw.html)
+- [The Twelve-Factor App](https://12factor.net)
 - Configuration
-    - [envconfig](https://github.com/kelseyhightower/envconfig)
+    - [conf](https://pkg.go.dev/github.com/ardanlabs/conf/v3)
     - [viper](https://github.com/spf13/viper) & [cobra](https://github.com/spf13/cobra)
 - Logging 
-    - Built-in [log](https://pkg.go.dev/log/)
+    - Built-in [slog](https://pkg.go.dev/log/slog/)
     - [uber/zap](https://pkg.go.dev/go.uber.org/zap)
-    - [logrus](https://github.com/sirupsen/logrus)
-    - [zerolog](https://github.com/rs/zerolog)
 - Metrics
     - Built-in [expvar](https://pkg.go.dev/expvar/)
     - [Open Telemetry](https://opentelemetry.io/)
     - [Prometheus](https://pkg.go.dev/github.com/prometheus/client_golang/prometheus)
+- External web servers:
+    - [chi](https://go-chi.io/) - Miki's favorite (after stdlib :)
+    - [gorilla](https://gorilla.github.io/) - Old timer
+    - [Gin](https://gin-gonic.com/) - Popular framework
+    - [fasthttp](https://github.com/valyala/fasthttp) - Low level and fast
 - [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
 - [Tutorial: Getting started with multi-module workspaces](https://go.dev/doc/tutorial/workspaces)
 - [Example Project Structure](https://github.com/ardanlabs/service)
+- [Organizing a Go module](https://go.dev/doc/modules/layout)
 - [How to Write Go Code](https://go.dev/doc/code.html)
 - Documentation
     - [Godoc: documenting Go code](https://go.dev/blog/godoc)
+    - [Go Doc Comments](https://go.dev/doc/comment)
     - [Testable examples in Go](https://go.dev/blog/examples)
     - [Go documentation tricks](https://godoc.org/github.com/fluhus/godoc-tricks)
     - [gob/doc.go](https://github.com/golang/go/blob/master/src/encoding/gob/doc.go) of the `gob` package. Generates [this documentation](https://pkg.go.dev/encoding/gob/)
-    - `go install golang.org/x/pkgsite/cmd/pkgsite@9ffe8b928e4fbd3ff7dcf984254629a47f8b6e63` (require go 1.18)
+    - `go install golang.org/x/pkgsite/cmd/pkgsite@latest` (require go 1.18+)
     - `pkgsite -http=:8080` (open browser on http://localhost:8080/${module name})
 - [Out Software Dependency Problem](https://research.swtch.com/deps) - Good read on dependencies by Russ Cox
 - Linters (static analysis)
     - [staticcheck](https://staticcheck.io/)
+    - [golangci-lint](https://golangci-lint.run/)
     - [gosec](https://github.com/securego/gosec) - Security oriented
+    - [vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck) - Check for CVEs
     - [golang.org/x/tools/go/analysis](https://pkg.go.dev/golang.org/x/tools/go/analysis) - Helpers to write analysis tools (see [example](https://arslan.io/2019/06/13/using-go-analysis-to-write-a-custom-linter/))
 - Testing
     - [testing](https://pkg.go.dev/testing/)
     - [testify](https://pkg.go.dev/github.com/stretchr/testify) - Many test utilities (including suites & mocking)
+    - [Ginkgo](https://onsi.github.io/ginkgo/)
     - [Tutorial: Getting started with fuzzing](https://go.dev/doc/tutorial/fuzz)
         - [testing/quick](https://pkg.go.dev/testing/quick) - Initial fuzzing library
     - [test containers](https://golang.testcontainers.org/)
 - HTTP Servers
     - [net/http](https://pkg.go.dev/net/http/)
     - [net/http/httptest](https://pkg.go.dev/net/http/httptest)
-    - [gorilla/mux](https://github.com/gorilla/mux) - HTTP router with more frills
     - [chi](https://github.com/go-chi/chi) - A nice web framework
 
 ### Data & Other
@@ -289,4 +258,4 @@ Adding metrics & logging
 - [nlp.go](_extra/nlp.go)
 - [stemmer.go](_extra/stemmer.go)
 - [tokenize_cases.toml](_extra/tokenize_cases.toml)
-    - `github.com/BurntSushi/toml`
+    - github.com/BurntSushi/toml

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for n in $@; do
-    (sleep $n && echo $n)&
+for v in $@; do
+    (sleep $v && echo $v)&
 done
 wait

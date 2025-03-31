@@ -1,6 +1,5 @@
 /*
-Package nlp provides natural language processing utilities.
-
+Package nlp provies natural language processing tools for Go.
 ...
 */
 package nlp

@@ -6,6 +6,7 @@ import (
 )
 
 var (
+	// "Who's on first?" -> [Who s on first]
 	wordRe = regexp.MustCompile(`[a-zA-Z]+`)
 )
 

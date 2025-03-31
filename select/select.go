@@ -7,30 +7,32 @@ import (
 )
 
 func main() {
-	ch1, ch2 := make(chan int), make(chan int)
+	// Buffered channel to avoid goroutine leak
+	ch1, ch2 := make(chan string, 1), make(chan string, 1)
 
 	go func() {
-		time.Sleep(10 * time.Millisecond)
-		ch1 <- 1
+		time.Sleep(100 * time.Millisecond)
+		// Possibles solution to goroutine leak: select with timeout
+		ch1 <- "one"
 	}()
-
 	go func() {
-		time.Sleep(20 * time.Millisecond)
-		ch2 <- 2
+		time.Sleep(200 * time.Millisecond)
+		ch2 <- "two"
 	}()
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 	defer cancel()
 
 	select {
-	case val := <-ch1:
-		fmt.Println("ch1:", val)
-	case val := <-ch2:
-		fmt.Println("ch2:", val)
-	// case <-time.After(5 * time.Millisecond):
+	case v := <-ch1:
+		fmt.Println("ch1:", v)
+	case v := <-ch2:
+		fmt.Println("ch2:", v)
+		/*
+			case <-time.After(10 * time.Millisecond):
+				fmt.Println("timeout")
+		*/
 	case <-ctx.Done():
 		fmt.Println("timeout")
 	}
-
-	// select {} // blocks forever without consumit CPU
 }

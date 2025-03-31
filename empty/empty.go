@@ -3,94 +3,39 @@ package main
 import "fmt"
 
 func main() {
-	var i any
-	// go < 1.18
-	// var i interface{}
+	var a any // interface{}
 
-	i = 7
-	fmt.Println(i)
+	a = 7
+	fmt.Println("a:", a)
 
-	i = "hi"
-	fmt.Println(i)
+	a = "Hi"
+	fmt.Println("a:", a)
+	/* Rule of thumb: Don't use any :)
+	Exceptions:
+	- Serialization
+	- Printing
+	*/
 
-	// Rule of thumb: Don't use any :)
-
-	s := i.(string) // type assertion
+	s := a.(string) // type assertion
 	fmt.Println("s:", s)
 
-	/*
-		n := i.(int) // will panic
-		fmt.Println("n:", n)
-	*/
+	// i := a.(int) // Will panic
 
-	// comma, ok
-	n, ok := i.(int)
+	// AKA: "comma, ok", "ok" is a bool
+	i, ok := a.(int)
 	if ok {
-		fmt.Println("n:", n)
+		fmt.Println("i:", i)
 	} else {
-		fmt.Println("not an int")
+		fmt.Printf("not an int (%T)\n", a)
 	}
 
-	switch i.(type) { // type switch
+	// type switch
+	switch a.(type) {
 	case int:
-		fmt.Println("an int")
+		fmt.Println("int")
 	case string:
-		fmt.Println("a string")
+		fmt.Println("string")
 	default:
-		fmt.Printf("unknown type: %T\n", i)
+		fmt.Printf("other type (%T)\n", a)
 	}
-
-	/*
-		fmt.Println(maxInts([]int{3, 1, 2}))
-		fmt.Println(maxFloat64s([]float64{3, 1, 2}))
-	*/
-	fmt.Println(max([]int{3, 1, 2}))
-	fmt.Println(max([]float64{3, 1, 2}))
-}
-
-type Number interface {
-	int | float64
-}
-
-// func max[T int | float64](nums []T) T {
-func max[T Number](nums []T) T {
-	if len(nums) == 0 {
-		return 0
-	}
-
-	max := nums[0]
-	for _, n := range nums[1:] {
-		if n > max {
-			max = n
-		}
-	}
-	return max
-}
-
-func maxInts(nums []int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-
-	max := nums[0]
-	for _, n := range nums[1:] {
-		if n > max {
-			max = n
-		}
-	}
-	return max
-}
-
-func maxFloat64s(nums []float64) float64 {
-	if len(nums) == 0 {
-		return 0
-	}
-
-	max := nums[0]
-	for _, n := range nums[1:] {
-		if n > max {
-			max = n
-		}
-	}
-	return max
 }

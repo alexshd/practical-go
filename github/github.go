@@ -4,72 +4,92 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
-	"net/url"
 	"time"
 )
 
+// Given a github user login, return name and number of public repos
+
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-	fmt.Println(githubInfo(ctx, "tebeka"))
+	fmt.Println(UserInfo(ctx, "ardanlabs"))
 }
 
-// githubInfo returns name and number of public repos for login
-func githubInfo(ctx context.Context, login string) (string, int, error) {
-	url := "https://api.github.com/users/" + url.PathEscape(login)
-	// resp,err := http.Get(url)
+func demo() {
+	resp, err := http.Get("https://api.github.com/users/ardanlabs")
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		fmt.Printf("ERROR: bad status - %s\n", resp.Status)
+		return
+	}
+
+	ctype := resp.Header.Get("Content-Type")
+	fmt.Println("content-type:", ctype)
+
+	// io.Copy(os.Stdout, resp.Body)
+	var reply struct {
+		Name     string
+		NumRepos int `json:"public_repos"`
+	}
+	dec := json.NewDecoder(resp.Body)
+	if err := dec.Decode(&reply); err != nil {
+		fmt.Println("ERROR:", err)
+		return
+	}
+	fmt.Println(reply.Name, reply.NumRepos)
+}
+
+// UserInfo return name and number of public repos from GitHub API.
+func UserInfo(ctx context.Context, login string) (string, int, error) {
+	url := "https://api.github.com/users/" + login
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return "", 0, err
 	}
-
+	// resp, err := http.Get("https://api.github.com/users/ardanlabs")
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", 0, err
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return "", 0, fmt.Errorf("%#v - %s", url, resp.Status)
+		return "", 0, fmt.Errorf("%q - bad status: %s", url, resp.Status)
 	}
 
-	defer resp.Body.Close()
+	return parseResponse(resp.Body)
+}
 
-	// fmt.Printf("Content-Type: %s\n", resp.Header.Get("Content-Type"))
-	// var r Reply
-
-	var r struct { // anonymous struct
-		Name string
-		// Public_Repos int
+func parseResponse(r io.Reader) (string, int, error) {
+	var reply struct {
+		Name     string
 		NumRepos int `json:"public_repos"`
 	}
-	dec := json.NewDecoder(resp.Body)
-	if err := dec.Decode(&r); err != nil {
+	dec := json.NewDecoder(r)
+	if err := dec.Decode(&reply); err != nil {
 		return "", 0, err
 	}
 
-	return r.Name, r.NumRepos, nil
+	return reply.Name, reply.NumRepos, nil
 }
-
-/*
-type Reply struct {
-	Name string
-	// Public_Repos int
-	NumRepos int `json:"public_repos"`
-}
-*/
 
 /* JSON <-> Go
-true/false <-> true/false
+
+Types
 string <-> string
-null <-> nil
-number <-> float64, float32, int8, int16, int32, int64, int, uint8, ...
-array <-> []any ([]interface{})
+true/false <-> bool
+number <-> float64, float32, int, int8 ... int64, uint, uint8 ...
+array <-> []T, []any
 object <-> map[string]any, struct
 
 encoding/json API
-JSON -> io.Reader -> Go: json.Decoder
-JSON -> []byte -> Go: json.Unmarshal
-Go -> io.Writer -> JSON: json.Encoder
-Go -> []byte -> JSON: json.Marshal
+JSON -> []byte -> Go: Unmarshal
+Go -> []byte -> JSON: Marshal
+JSON -> io.Reader -> Go: Decoder
+Go -> io.Writer -> JSON: Encoder
 */

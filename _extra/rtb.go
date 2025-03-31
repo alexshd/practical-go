@@ -3,16 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
-	"strings"
 	"time"
 )
 
 func main() {
 	// We have 50 msec to return an answer
-	ctx, cancel :=  // TODO
+	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
 	defer cancel()
-	url := "https://go.dev" // return the 7¢ ad
-	// url := "http://go.dev" // return the default ad
+
+	url := "https://go.dev"
 	bid := bidOn(ctx, url)
 	fmt.Println(bid)
 }
@@ -31,14 +30,10 @@ var defaultBid = Bid{
 // Written by Algo team, time to completion varies
 func bestBid(url string) Bid {
 	// Simulate work
-	d := 100 * time.Millisecond
-	if strings.HasPrefix(url, "https://") {
-		d = 20 * time.Millisecond
-	}
-	time.Sleep(d)
+	time.Sleep(20 * time.Millisecond)
 
 	return Bid{
-		AdURL: "http://adsЯus.com/ad17",
+		AdURL: "http://adsЯus.com/ad7",
 		Price: 7,
 	}
 }

@@ -5,71 +5,59 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-
-	/*
-		a := 1
-		{
-			// a := 2                  // shadows outer a
-			a = 2                   // change outer a
-			fmt.Println("inner", a) // affect only innter a
-		}
-		fmt.Println("outer", a)
-		return
-	*/
-
-	sig, err := sha1Sum("http.log.gz")
-	if err != nil {
-		log.Fatalf("error: %s", err)
-	}
-	fmt.Println(sig)
-
-	sig, err = sha1Sum("sha1.go")
-	if err != nil {
-		log.Fatalf("error: %s", err)
-	}
-	fmt.Println(sig)
+	fmt.Println(SHA1Sig("http.log.gz"))
+	fmt.Println(SHA1Sig("sha1.go"))
 }
 
-/*
-if file names ends with .gz
-
-	$ cat http.log.gz| gunzip | sha1sum
-
-else
-
-	$ cat http.log.gz| sha1sum
-*/
-func sha1Sum(fileName string) (string, error) {
-	// idiom: acquire a resource, check for error, defer release
+// SHA1Sig returns SHA1 signature of uncompressed file.
+// Exercise: Decompress only if file name ends with ".gz"
+// cat http.log.gz| gunzip | sha1sum
+func SHA1Sig(fileName string) (string, error) {
+	// cat http.log.gz
 	file, err := os.Open(fileName)
 	if err != nil {
-		return "", nil
+		return "", err
 	}
-	defer file.Close() // deferred are called in LIFO order
+	defer file.Close()
+
 	var r io.Reader = file
 
 	if strings.HasSuffix(fileName, ".gz") {
+		// | gunzip
+		// BUG: Creates new "r" that is only in "if" scope.
+		// shadowing
+		// r, err := gzip.NewReader(file)
 		gz, err := gzip.NewReader(file)
 		if err != nil {
-			return "", err
+			return "", fmt.Errorf("%q - gzip: %w", fileName, err)
 		}
 		defer gz.Close()
 		r = gz
 	}
 
-	// io.CopyN(os.Stdout, r, 100)
+	// | sha1sum
 	w := sha1.New()
-
 	if _, err := io.Copy(w, r); err != nil {
-		return "", err
+		return "", fmt.Errorf("%q - copy: %w", fileName, err)
 	}
 
 	sig := w.Sum(nil)
 	return fmt.Sprintf("%x", sig), nil
 }
+
+/*
+Go
+type Reader interface {
+	Read(p []byte) (n int, err error)
+}
+
+Python
+type Reader interface {
+	Read(n int) ([]byte, err error)
+}
+*/

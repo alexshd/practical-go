@@ -9,81 +9,76 @@ func main() {
 	go fmt.Println("goroutine")
 	fmt.Println("main")
 
-	for i := 0; i < 3; i++ {
-		// Fix 2: Use a loop body variable
-		i := i // "i" shadows "i" from the for loop
+	for i := range 3 {
+		// Prior to Go 1.22 this was a bug.
 		go func() {
-			fmt.Println(i) // i from line 14
+			fmt.Println("goroutine:", i)
 		}()
-
-		/* Fix 1: Use a parameter
-		go func(n int) {
-			fmt.Println(n)
-		}(i)
-		*/
-		/* BUG: All goroutines use the "i" for the for loop
-		go func() {
-			fmt.Println(i) // i from line 12
-		}()
-		*/
 	}
-
 	time.Sleep(10 * time.Millisecond)
 
-	shadowExample()
-
-	ch := make(chan string)
+	ch := make(chan int)
 	go func() {
-		ch <- "hi" // send
+		ch <- 7 // send
 	}()
-	msg := <-ch // receive
-	fmt.Println(msg)
+	v := <-ch // receive
+	fmt.Println(v)
+
+	fmt.Println(sleepSort([]int{20, 30, 10})) // [10 20 30]
 
 	go func() {
-		for i := 0; i < 3; i++ {
-			msg := fmt.Sprintf("message #%d", i+1)
-			ch <- msg
+		for i := range 4 {
+			ch <- i
 		}
 		close(ch)
 	}()
 
-	for msg := range ch {
-		fmt.Println("got:", msg)
+	for v := range ch {
+		fmt.Println(">>", v)
 	}
 
-	/* for/range does this
+	v = <-ch // ch is closed
+	fmt.Println("closed:", v)
+	v, ok := <-ch // ch is closed
+	fmt.Println("closed:", v, "ok:", ok)
+
+	/* The "for range" above does
 	for {
-		msg, ok := <-ch
+		v, ok := <- ch
 		if !ok {
 			break
 		}
-		fmt.Println("got:", msg)
+		fmt.Println(">>", v)
 	}
 	*/
 
-	msg = <-ch // ch is closed
-	fmt.Printf("closed: %#v\n", msg)
-
-	msg, ok := <-ch // ch is closed
-	fmt.Printf("closed: %#v (ok=%v)\n", msg, ok)
-
-	// ch <- "hi" // ch is closed -> panic
-	values := []int{15, 8, 42, 16, 4, 23}
-	fmt.Println(sleepSort(values))
+	// var ch chan int // ch is nil
 }
 
-/*
-For every value "n" in values, spin a goroutine that will
-- sleep "n" milliseconds
-- Send "n" over a channel
-
-In the function body, collect values from the channel to a slice and return it.
+/* Channel semantics
+- send/receive to/from a channel will block until opposite operation(*)
+	- guarantee of delivery
+	- buffered channel has "n" non blocking sends (lose guarantee)
+- receive from a closed channel will return zero value without blocking
+	- use "comma ok" to check if channel was closed
+- send to a closed channel will panic
+- closing a closed or nil channel will panic
+- send/receive to a nil channel will block forever
 */
 
+/*
+	Algorithm
+
+- For every value "n" in values, spin a goroutine that
+  - sleeps for "n" milliseconds
+  - sends "n" over a channel
+
+- collect all values from the channel to a slice and return it
+*/
 func sleepSort(values []int) []int {
 	ch := make(chan int)
+
 	for _, n := range values {
-		n := n
 		go func() {
 			time.Sleep(time.Duration(n) * time.Millisecond)
 			ch <- n
@@ -91,31 +86,9 @@ func sleepSort(values []int) []int {
 	}
 
 	var out []int
-	// for i := 0; i < len(values); i++ {
-	for range values {
+	for range `values` {
 		n := <-ch
 		out = append(out, n)
 	}
 	return out
-}
-
-/* Channel semantics
-- send & receive will block until opposite operation (*)
-	- Buffered channel has cap(ch) non-blocking sends
-- receive from a closed channel will return the zero value without blocking
-- send to a closed channel will panic
-- closing a closed channel will panic
-- send/receive to a nil channel will block forever
-
-See also https://www.353solutions.com/channel-semantics
-*/
-
-func shadowExample() {
-	n := 7
-	{
-		n := 2 // from here to } this is "n"
-		// n = 2 // outer n
-		fmt.Println("inner", n)
-	}
-	fmt.Println("outer", n)
 }

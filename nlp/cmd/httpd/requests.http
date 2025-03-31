@@ -1,0 +1,13 @@
+### Health
+GET http://localhost:8080/health
+
+### Tokenize
+POST http://localhost:8080/tokenize
+
+Who's on first?
+
+# curl -d"Who's on first?" http://localhost:8080/tokenize
+# {"tokens": ["who", "on", "first"]}
+
+### Stem
+GET http://localhost:8080/stem/working

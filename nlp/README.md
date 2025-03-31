@@ -1,7 +1,6 @@
-# nlp - Natural Language Processing for Go
+# nlp - Natural Language Processing Tools for Go
 
 ...
-
 
 ## Hacking
 

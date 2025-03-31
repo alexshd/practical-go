@@ -1,28 +1,19 @@
-package stemmer
+package stemmer_test
 
 import (
 	"fmt"
-	"testing"
 
-	"github.com/stretchr/testify/require"
+	"github.com/ardanlabs/nlp/stemmer"
 )
 
-var testCases = []struct {
-	word string
-	stem string
-}{
-	{"working", "work"},
-	{"works", "work"},
-	{"worked", "work"},
-	{"work", "work"},
-}
-
-func TestStem(t *testing.T) {
-	for _, tc := range testCases {
-		name := fmt.Sprintf("%s:%s", tc.word, tc.stem)
-		t.Run(name, func(t *testing.T) {
-			stem := Stem(tc.word)
-			require.Equal(t, tc.stem, stem)
-		})
+func ExampleStem() {
+	words := []string{"worked", "working", "works"}
+	for _, w := range words {
+		fmt.Printf("%s -> %s\n", w, stemmer.Stem(w))
 	}
+
+	// Output:
+	// worked -> work
+	// working -> work
+	// works -> work
 }

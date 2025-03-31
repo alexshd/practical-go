@@ -1,10 +1,22 @@
-[[cases]]
+[[case]]
 text = "Who's on first?"
-tokens = ["who", "s", "on", "first"]
+tokens = [
+    "who",
+    "s",
+    "on",
+    "first",
+]
 
-[[cases]]
+[[case]]
 text = "What's on second?"
-tokens = ["what", "s", "on", "second"]
+tokens = [
+    "what",
+    "s",
+    "on",
+    "second",
+]
 
-[[cases]]
+[[case]]
 text = ""
+name = "empty string"
+tokens = []
