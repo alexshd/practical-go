@@ -9,7 +9,7 @@ import (
 func ExampleStem() {
 	words := []string{"worked", "working", "works"}
 	for _, w := range words {
-		fmt.Println("%s -> %s\n", w, stemmer.Stem(w))
+		fmt.Printf("%s -> %s\n", w, stemmer.Stem(w))
 	}
 
 	// Output:
